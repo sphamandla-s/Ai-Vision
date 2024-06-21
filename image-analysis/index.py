@@ -5,7 +5,6 @@ from azure.core.exceptions import HttpResponseError
 from matplotlib import pyplot as plt
 from PIL import Image, ImageDraw
 from dotenv import load_dotenv
-
 import os
 import sys
 
@@ -22,7 +21,7 @@ cv_client = ImageAnalysisClient(ai_endpoint, AzureKeyCredential(ai_key))
 def main():
     try:
         # Get image
-        image_file = 'images/person.jpg'
+        image_file = 'images/street.jpg'
         if len(sys.argv) > 1:
             image_file = sys.argv[1]
 
@@ -33,7 +32,6 @@ def main():
 
         with open(image_file, "rb") as f:
             image_data = f.read()
-
         AnalyzeImage(image_file, image_data, cv_client)
 
     except Exception as ex:
@@ -90,6 +88,7 @@ def AnalyzeImage(image_filename, image_data, cv_client):
         outputfile = 'objects.jpg'
         fig.savefig(outputfile)
         print('  Results saved in', outputfile)
+        image.show(outputfile)
 
 
 if __name__ == "__main__":
